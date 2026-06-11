@@ -1,0 +1,99 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global safety net - default deny everything first
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Global helper primitives
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function isVerifiedUser() {
+      // Mandating email verification for active write operations
+      return isSignedIn() && (request.auth.token.email_verified == true || request.auth.token.firebase.sign_in_provider == 'anonymous');
+    }
+
+    // 3. Places Collection Rules (Waterfalls, Beaches, Mountains, etc.)
+    match /places/{placeId} {
+      allow get, list: if true; // Publicly readable for tourism SEO
+      allow write: if false; // System generated static database - clients cannot edit
+    }
+
+    // 4. Hotels Collection Rules 
+    match /hotels/{hotelId} {
+      allow get, list: if true;
+      allow write: if false;
+    }
+
+    // 5. Restaurants Collection Rules
+    match /restaurants/{restaurantId} {
+      allow get, list: if true;
+      allow write: if false;
+    }
+
+    // 6. Reviews Collection Rules (User Feedback)
+    match /reviews/{reviewId} {
+      allow get: if true; // Anyone can view reviews
+      allow list: if true;
+      allow create: if isVerifiedUser() 
+        && isValidId(reviewId)
+        && incoming().id == reviewId
+        && incoming().userId == request.auth.uid
+        && incoming().rating is number 
+        && incoming().rating >= 1 
+        && incoming().rating <= 5
+        && incoming().comment is string
+        && incoming().comment.size() <= 1500;
+      allow update: if isVerifiedUser()
+        && isOwner(existing().userId)
+        && incoming().userId == existing().userId
+        && incoming().comment is string
+        && incoming().comment.size() <= 1500
+        && incoming().diff(existing()).affectedKeys().hasOnly(['comment', 'rating', 'photoUrl']);
+      allow delete: if isVerifiedUser() && isOwner(existing().userId);
+    }
+
+    // 7. Users Collection Rules (PII Isolated Profiles)
+    match /users/{userId} {
+      allow get: if isSignedIn(); // allow logged-in users to see profiles
+      allow list: if false; // prevent query scraping of PII
+      allow create, update: if isVerifiedUser() && isOwner(userId)
+        && incoming().uid == userId
+        && incoming().email is string
+        && incoming().email.size() <= 320
+        && (incoming().favorites == null || incoming().favorites is list);
+      allow delete: if false; // accounts can be archived but not hard-deleted via client
+    }
+
+    // 8. Trip Plans Collection Rules (Trip Itineraries)
+    match /trip_plans/{planId} {
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isVerifiedUser()
+        && isValidId(planId)
+        && incoming().id == planId
+        && incoming().userId == request.auth.uid
+        && incoming().durationDays is number
+        && incoming().itinerary is map;
+      allow update: if isVerifiedUser()
+        && isOwner(existing().userId)
+        && incoming().userId == existing().userId
+        && incoming().diff(existing()).affectedKeys().hasOnly(['itinerary', 'title', 'durationDays']);
+      allow delete: if isVerifiedUser() && isOwner(existing().userId);
+    }
+  }
+}

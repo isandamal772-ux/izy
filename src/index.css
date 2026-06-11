@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Premium theme palette configuration */
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #FFB703; /* Official gold requested */
+  --color-gold-600: #e09b00;
+  --color-gold-700: #c27f00;
+  --color-gold-800: #9e6400;
+  --color-gold-900: #78350f;
+
+  --color-ocean-50: #f0f7ff;
+  --color-ocean-100: #e0effe;
+  --color-ocean-200: #badbfc;
+  --color-ocean-300: #7cbdfa;
+  --color-ocean-400: #3ca2f5;
+  --color-ocean-500: #00B4D8; /* Official teal requested */
+  --color-ocean-600: #0a80e0;
+  --color-ocean-700: #0159b3;
+  --color-ocean-800: #0a2552;
+  --color-ocean-900: #0A1F44; /* Official dark blue requested */
+  --color-ocean-950: #051026;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, #0A1F44 0%, #063161 50%, #00B4D8 100%) !important;
+  background-attachment: fixed;
+  color: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* Premium stylized thin scrollbar which fits premium booking platforms */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A1F44;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFB703;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fbbf24;
+}
+
+/* Glassmorphism system class utilities */
+.glass-panel {
+  background: rgba(10, 31, 68, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-pulse 1.5s infinite;
+}
+
+@keyframes shimmer-pulse {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
