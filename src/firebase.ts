@@ -102,11 +102,19 @@ export async function loginWithGoogle() {
       favorites: [],
       createdAt: new Date().toISOString()
     };
-    localStorage.setItem("visit_srilanka_user", JSON.stringify(mockUser));
+    localStorage.setItem("izysl_user", JSON.stringify(mockUser));
     return mockUser;
   }
   try {
     const result = await signInWithPopup(firebaseAuth, googleProvider);
+    // Persist real user too
+    const userObj = {
+      uid: result.user.uid,
+      email: result.user.email,
+      displayName: result.user.displayName,
+      photoURL: result.user.photoURL,
+    };
+    localStorage.setItem("izysl_user", JSON.stringify(userObj));
     return result.user;
   } catch (error) {
     console.error("Authentication popup failed: ", error);
@@ -115,6 +123,7 @@ export async function loginWithGoogle() {
 }
 
 export async function logoutUser() {
+  localStorage.removeItem("izysl_user");
   localStorage.removeItem("visit_srilanka_user");
   if (!isFirebaseAvailable || !firebaseAuth) {
     return;

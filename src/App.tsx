@@ -50,6 +50,17 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<"explore" | "planner" | "tips" | "blog" | "reviews" | "emergency" | "map">("explore");
   const [activeModalTab, setActiveModalTab] = useState<"overview" | "reach" | "tips">("overview");
 
+  // Custom Toast State
+  const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "error"; id: number } | null>(null);
+
+  const triggerToast = (message: string, type: "success" | "info" | "error" = "success") => {
+    const id = Date.now();
+    setToast({ message, type, id });
+    setTimeout(() => {
+      setToast(curr => curr?.id === id ? null : curr);
+    }, 4500);
+  };
+
   // Mobile Bottom-Sheet states
   const [isFeedbackSheetOpen, setIsFeedbackSheetOpen] = useState(false);
   const [isReviewSheetOpen, setIsReviewSheetOpen] = useState(false);
@@ -140,14 +151,14 @@ export default function App() {
   // Load state and system initial parameters
   useEffect(() => {
     // Check dark mode preference
-    const savedDark = localStorage.getItem("visit_srilanka_dark");
+    const savedDark = localStorage.getItem("izysl_dark") || localStorage.getItem("visit_srilanka_dark");
     if (savedDark !== null) {
       setDarkMode(savedDark === "true");
     }
 
     // Load active session profile
     try {
-      const savedUser = localStorage.getItem("visit_srilanka_user");
+      const savedUser = localStorage.getItem("izysl_user") || localStorage.getItem("visit_srilanka_user");
       if (savedUser) {
         setCurrentUser(JSON.parse(savedUser));
       }
@@ -157,7 +168,7 @@ export default function App() {
 
     // Load wishlist favorites securely with try-catch and syntax fallback
     try {
-      const savedFavs = localStorage.getItem("visit_srilanka_favs");
+      const savedFavs = localStorage.getItem("izysl_favs") || localStorage.getItem("visit_srilanka_favs");
       if (savedFavs) {
         const parsed = JSON.parse(savedFavs);
         if (Array.isArray(parsed)) {
@@ -173,7 +184,7 @@ export default function App() {
 
     // Load custom comments
     try {
-      const savedComments = localStorage.getItem("visit_srilanka_comments");
+      const savedComments = localStorage.getItem("izysl_comments") || localStorage.getItem("visit_srilanka_comments");
       if (savedComments) {
         setUserReviews(JSON.parse(savedComments));
       }
@@ -298,7 +309,7 @@ export default function App() {
   const handleShareSystem = (name: string) => {
     const url = `https://izysl.com/island/${encodeURIComponent(name)}`;
     navigator.clipboard.writeText(url);
-    alert(`Tourism Link copied to clipboard for: ${name}! Share this boutique destination with friends.\n${url}`);
+    triggerToast(`Shared! Copying travel link for "${name}" to clipboard. Try sharing with your travel partners!\n${url}`, "success");
   };
 
   // Multi-lingual translation mapping dictionary
@@ -1099,7 +1110,7 @@ export default function App() {
                   <div className="px-5 pb-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 text-right">
                     <button 
                       id={`btn-blog-read-${art.id}`}
-                      onClick={() => alert(`Full travel article "${art.title}" is in static print mode.\nAuthor: ${art.author}\nDate published: ${art.date}`)}
+                      onClick={() => triggerToast(`"${art.title}" is currently in static preview mode.\nAuthor: ${art.author} | published ${art.date}`, "info")}
                       className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold font-sans hover:underline flex items-center gap-0.5 justify-end"
                     >
                       Read full chronicle <ArrowRight className="w-3.5 h-3.5" />
@@ -1298,7 +1309,7 @@ export default function App() {
                 <button
                   id="btn-reviews-gallery-top"
                   onClick={() => {
-                    alert("To upload a custom camera capture, click 'Explore Paradises' at the top, open any destination, hotel, or diner modal card, and submit your review with an image attached!");
+                    triggerToast("To upload a capture: Click 'Explore Places' at the top, open any destination modal, and submit a review with an image attached!", "info");
                   }}
                   className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold font-sans text-xs px-4 py-2.5 rounded-xl cursor-pointer shadow-sm self-start sm:self-auto"
                 >
@@ -1511,7 +1522,7 @@ export default function App() {
                       type="button"
                       onClick={() => {
                         setSimulatedPhoto("https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=400&q=80");
-                        alert("Simulated scenic drone photo attached successfully!");
+                        triggerToast("Scenic coastal drone photo simulation attached successfully!", "success");
                       }}
                       className="w-full bg-white dark:bg-slate-900 hover:bg-slate-105 dark:hover:bg-slate-800 text-slate-705 dark:text-slate-300 py-2 rounded-xl text-xs border border-slate-200 dark:border-slate-800 flex items-center justify-center gap-1.5 transition-colors cursor-pointer font-medium"
                     >
@@ -1526,16 +1537,16 @@ export default function App() {
                       onClick={() => {
                         const targetId = (window as any).selectedFeedTargetId;
                         if (!targetId) {
-                          alert("Please select a target paradise landmark first!");
+                          triggerToast("Please select a target paradise landmark first!", "error");
                           return;
                         }
                         if (!newCommentText.trim()) {
-                          alert("Please enter your detailed travel comments before broadcasting!");
+                          triggerToast("Please enter your detailed travel comments before broadcasting!", "error");
                           return;
                         }
                         handleAddReview(targetId);
                         setIsReviewSheetOpen(false);
-                        alert("Broadcasting successful! Your review has been updated in the global nomination panel!");
+                        triggerToast("Broadcast successful! Your luxury travel review has been submitted to the feed.", "success");
                       }}
                       className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-sans text-xs font-bold py-3 rounded-xl shadow-md transition-all uppercase tracking-wider cursor-pointer font-bold"
                     >
@@ -1948,7 +1959,7 @@ export default function App() {
                             type="button"
                             onClick={() => {
                               setSimulatedPhoto("https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80");
-                              alert("Boutique drone photo simulating upload completed!");
+                              triggerToast("Boutique drone travel photo upload simulation completed!", "success");
                             }}
                             className="bg-slate-200 hover:bg-slate-250 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-705 dark:text-slate-300 font-sans px-3 py-1.5 rounded-lg text-[10px]"
                           >
@@ -2279,6 +2290,40 @@ export default function App() {
 
       {/* Floating AI chat drawer trigger */}
       <AiAssistant />
+
+      {/* Toast notifications portal */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="fixed bottom-6 left-6 z-50 max-w-sm w-full bg-slate-950/95 border border-white/10 p-4 rounded-2xl shadow-2xl backdrop-blur-md text-white flex items-start gap-3"
+          >
+            <div className="mt-0.5">
+              {toast.type === "success" && (
+                <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+              )}
+              {toast.type === "info" && (
+                <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">i</span>
+              )}
+              {toast.type === "error" && (
+                <span className="w-5 h-5 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center font-bold text-xs">!</span>
+              )}
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-sans font-medium leading-relaxed whitespace-pre-line">{toast.message}</p>
+            </div>
+            <button
+              onClick={() => setToast(null)}
+              className="text-white/40 hover:text-white transition-colors text-lg font-bold leading-none select-none pl-1 cursor-pointer"
+            >
+              ×
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Floating WhatsApp contact button bottom-right */}
       <a

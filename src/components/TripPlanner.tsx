@@ -91,9 +91,9 @@ export default function TripPlanner() {
 
   const savePlanningToUser = () => {
     if (!generatedPlan) return;
-    const existingPlansStr = localStorage.getItem("visit_srilanka_plans") || "[]";
+    const existingPlansStr = localStorage.getItem("izysl_plans") || localStorage.getItem("visit_srilanka_plans") || "[]";
     const existingPlans = JSON.parse(existingPlansStr);
-    localStorage.setItem("visit_srilanka_plans", JSON.stringify([...existingPlans, generatedPlan]));
+    localStorage.setItem("izysl_plans", JSON.stringify([...existingPlans, generatedPlan]));
     setIsSaved(true);
   };
 
