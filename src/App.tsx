@@ -813,7 +813,7 @@ export default function App() {
                     const isFavorite = favorites.includes(item.id);
                     // Determine if it is Place, Hotel or Restaurant
                     const isPlace = "category" in item;
-                    const isHotel = "amenities" in item;
+                    const isHotel = "facilities" in item || "bookingUrl" in item;
                     const isRestaurant = "cuisine" in item;
 
                     const rating = getCompoundRating(item.id, item.rating);
@@ -2176,7 +2176,7 @@ export default function App() {
                 <div>
                   <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2 font-sans">Amenities & Highlights</h4>
                   <div className="flex flex-wrap gap-1.5">
-                    {selectedHotel.amenities.map(am => (
+                    {(selectedHotel.facilities || []).map(am => (
                       <span key={am} className="bg-slate-50 dark:bg-slate-850 px-2.5 py-1 rounded-md text-[10px] border border-slate-150 text-slate-650 dark:text-zinc-300">
                         {am}
                       </span>
@@ -2261,7 +2261,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="text-[10px] font-bold text-slate-400 id-headings-specs uppercase tracking-widest block font-sans">Must-Try Specialties</h4>
-                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">{selectedRestaurant.specialties.join(", ")}</span>
+                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">{(selectedRestaurant.menuHighlights || (selectedRestaurant as any).specialties || []).join(", ")}</span>
                   </div>
                 </div>
 
