@@ -1,0 +1,1438 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="monetag" content="de5a317509ed11996fe9e0611995e3ec">
+    <title>IZYSL.COM | Standalone Premium Sri Lanka Tourism Portal & Planner</title>
+    
+    <!-- SEO Metadata -->
+    <meta name="description" content="All-in-one standalone interactive guide to Sri Lanka. Plan your trip, explore top waterfalls, beaches, and wildlife, and read nomadic reviews." />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              gold: {
+                50: '#fefdf0',
+                100: '#fefbe1',
+                200: '#fcf6b6',
+                300: '#f9ed7f',
+                400: '#f4dc47',
+                500: '#D4AF37', // Official Gold
+                600: '#b89028',
+                705: '#97721f',
+                800: '#7a5a1c',
+                900: '#64481a',
+              },
+              ocean: {
+                50: '#f0f7fe',
+                100: '#e0effd',
+                200: '#badbfc',
+                300: '#7cbdf9',
+                400: '#349ff5',
+                500: '#0a80df',
+                600: '#0262bc',
+                700: '#03396c', // Main Ocean Blue
+                800: '#011f4b', // Deep Ocean Blue
+                900: '#0f172a', // Midnight Blue
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Ambient glassmorphic elements styling */
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .glass-panel-light {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+      }
+      .gold-glow {
+        box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+      }
+      .gold-glow-hover:hover {
+        box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+      }
+      
+      /* Pure custom smooth scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #011f4b;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #D4AF37;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b89028;
+      }
+      
+      /* Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(2deg); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      @keyframes pulseslow {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+      }
+      .animate-pulse-slow {
+        animation: pulseslow 4s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-ocean-900 text-slate-100 min-h-screen font-sans selection:bg-gold-500/20 selection:text-gold-200">
+
+    <!-- Ambient Visual Background Decors -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-gold-500/10 rounded-full blur-[160px] animate-pulse-slow"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-ocean-700/25 rounded-full blur-[180px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+      <!-- ================= Nav Bar ================= -->
+      <header class="glass-panel sticky top-0 z-40 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-gradient-to-br from-gold-500 to-gold-600 text-ocean-900 shadow-lg shadow-gold-500/15">
+              <!-- Compass Stylized SVG -->
+              <svg class="w-6 h-6 animate-spin" style="animation-duration: 20s" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88"></polygon>
+              </svg>
+            </div>
+            <div>
+              <h1 class="font-display font-bold text-lg md:text-xl tracking-tight leading-none text-white">
+                VISIT <span class="text-gold-500">SRI LANKA</span>
+              </h1>
+              <p class="text-[10px] text-slate-400 tracking-wider uppercase font-mono mt-0.5">Standalone Premium Portal</p>
+            </div>
+          </div>
+
+          <!-- Quick Metrics Badges -->
+          <div class="hidden lg:flex items-center gap-4 text-xs font-mono">
+            <div class="bg-white/5 border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-450 animate-ping"></span>
+              <span class="text-gold-400 font-bold" id="metric-waterfalls">12</span> Waterfalls
+            </div>
+            <div class="bg-white/5 border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span class="text-gold-400 font-bold" id="metric-beaches">14</span> Beaches
+            </div>
+            <div class="bg-white/5 border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span class="text-gold-400 font-bold" id="metric-mountains">10</span> Mountains
+            </div>
+            <div class="bg-white/5 border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              <span class="text-gold-400 font-bold" id="metric-heritage">10</span> Heritage
+            </div>
+          </div>
+
+          <!-- Emergency & Action Links -->
+          <div class="flex items-center gap-3">
+            <a href="https://wa.me/94771234567?text=Hi!%20Need%20some%20travel%20assistance%20for%20Sri%20Lanka." target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md shadow-emerald-900/40 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+              <!-- WhatsApp logo -->
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.1 1.448 4.7 1.449 5.483 0 9.944-4.461 9.947-9.948.002-2.657-1.03-5.155-2.903-7.03C16.516 1.74 14.02 1.7 11.1 12.003c-2.659-.001-5.155 1.03-7.025 2.905-1.874 1.875-2.904 4.373-2.906 7.03-.004 5.486 4.456 9.95 9.942 9.95zm-2.016-11.13c-.11-.2-.42-.31-.88-.54-.46-.23-2.72-1.34-3.14-1.49-.42-.15-.73-.23-.98.15-.26.38-1 .99-1.22 1.22-.23.23-.46.26-.92.03-.46-.23-1.95-.72-3.71-2.29-1.37-1.22-2.29-2.73-2.56-3.19-.27-.46-.03-.71.2-.94.21-.21.46-.54.69-.81.23-.27.31-.46.46-.77.15-.31.08-.57-.04-.8-.11-.23-.98-2.36-1.34-3.23-.35-.85-.71-.74-.98-.75-.25-.01-.54-.01-.84-.01-.3 0-.79.11-1.2.56-.41.45-1.58 1.54-1.58 3.76s1.62 4.36 1.85 4.67c.23.31 3.2 4.88 7.74 6.84 1.08.47 1.92.75 2.58.96.99.31 1.9.27 2.62.16.8-.12 2.72-1.11 3.1-2.19.38-1.07.38-2 .27-2.19-.11-.2-.42-.3-.88-.53z"/>
+              </svg>
+              <span>Connect Helpdesk</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- ================= Hero Section ================= -->
+      <section class="relative w-full h-[380px] md:h-[450px] overflow-hidden flex items-center justify-center p-4">
+        
+        <!-- Beautiful Backdrop Visual -->
+        <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat filter brightness-[0.35] scale-105" style="background-image: url('https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=1920&q=80')"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-ocean-900/60 via-ocean-800/75 to-ocean-900 z-1"></div>
+
+        <!-- Sparkly Light Spots -->
+        <div class="absolute top-1/4 left-1/3 w-80 h-80 bg-gold-400/5 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative text-center max-w-4xl mx-auto space-y-6 flex flex-col items-center z-10 w-full animate-float">
+          <!-- Ayubowan Greeting Badge -->
+          <span class="bg-gold-500/20 text-gold-300 font-mono text-[10.5px] font-bold px-3 py-1.5 rounded-full border border-gold-500/30 uppercase tracking-widest leading-none flex items-center gap-1.5">
+            🇱🇰 AYUBOWAN - ආයුබෝවන්
+          </span>
+          
+          <h2 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+            Ceylon's <span class="text-gold-500">Ultimate</span> Tourism Directory
+          </h2>
+          
+          <p class="text-sm md:text-base text-slate-300 max-w-2xl font-light">
+            Locate pristine beaches, highland waterfalls, and historical sanctuaries. Filter 100% of Ceylon's curated destinations using our active SVG Geographic Portal.
+          </p>
+
+          <!-- Search Bar -->
+          <div class="w-full max-w-2xl pt-2 px-1">
+            <div class="bg-slate-900/75 backdrop-blur-md border border-white/10 p-2 rounded-2xl shadow-2xl flex items-center transition-all duration-300 focus-within:border-gold-500 max-w-xl mx-auto">
+              <!-- Magnifying glass icon -->
+              <svg class="w-5 h-5 text-gold-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search waterfalls, beaches, hotels or towns..."
+                class="w-full bg-transparent border-0 outline-none text-white placeholder-slate-450 px-3 text-xs md:text-sm font-sans"
+              />
+              <button 
+                id="btn-clear-search" 
+                class="hidden p-1 px-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs mr-1 transition-all"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Showcase Grid Component ================= -->
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- LEFT PANEL: Province SVG Map & Province Fast Facts (Col Span: 4) -->
+          <aside class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+            
+            <!-- Map Card Wrapper -->
+            <div class="glass-panel rounded-2xl p-6 border border-white/10 shadow-lg relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-2 h-full bg-gold-500"></div>
+              
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="font-display font-medium text-white text-sm uppercase tracking-wider">Province Navigation Map</h3>
+                  <p class="text-[10px] text-slate-400">Click any region to filter locations</p>
+                </div>
+                <button id="btn-reset-map" class="text-[10px] uppercase font-mono text-gold-500 hover:text-gold-300 tracking-wider flex items-center gap-1 bg-white/5 hover:bg-white/10 px-2.5 py-1.5 rounded-lg border border-gold-500/20 active:scale-95 transition-all">
+                  Show All
+                </button>
+              </div>
+
+              <!-- Interactive SVG Sri Lanka Map -->
+              <div class="w-full h-80 flex items-center justify-center p-2 relative">
+                
+                <svg id="srilanka-svg-map" viewBox="90 10 140 320" class="w-full h-full text-slate-400 fill-current max-h-[300px]" stroke="#0c172c" stroke-width="1.2">
+                  <!-- Northern Province -->
+                  <path id="prov-northern" data-name="Northern" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300" 
+                        d="M120,70 L140,40 L160,20 L175,22 L180,45 L195,55 L180,95 L145,100 Z" />
+                  
+                  <!-- North Central Province -->
+                  <path id="prov-north-central" data-name="North Central" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M145,100 L180,95 L200,125 L190,165 L170,185 L145,185 Z" />
+                  
+                  <!-- North Western Province -->
+                  <path id="prov-north-western" data-name="North Western" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300" 
+                        d="M120,70 L145,100 L135,120 L130,155 L145,185 L135,225 L105,230 L95,200 L110,145 Z" />
+                  
+                  <!-- Eastern Province -->
+                  <path id="prov-eastern" data-name="Eastern" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M180,95 L200,125 L190,165 L185,255 L205,285 L220,230 L215,160 Z" />
+                  
+                  <!-- Central Province -->
+                  <path id="prov-central" data-name="Central" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M145,185 L170,185 L190,165 L185,255 L155,245 L140,225 Z" />
+                  
+                  <!-- Western Province -->
+                  <path id="prov-western" data-name="Western" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M135,225 L140,225 L135,275 L120,285 L110,270 L115,240 Z" />
+                  
+                  <!-- Sabaragamuwa Province -->
+                  <path id="prov-sabaragamuwa" data-name="Sabaragamuwa" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M140,225 L155,245 L150,295 L130,295 L120,285 L135,275 Z" />
+                  
+                  <!-- Uva Province -->
+                  <path id="prov-uva" data-name="Uva" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M185,255 L155,245 L150,295 L185,295 L205,285 Z" />
+                  
+                  <!-- Southern Province -->
+                  <path id="prov-southern" data-name="Southern" class="province-path fill-slate-800 text-slate-400 hover:text-gold-500/80 stroke-slate-900 cursor-pointer transition-all duration-300"
+                        d="M120,285 L130,295 L150,295 L185,295 L205,285 L200,315 L170,325 L140,320 L115,305 Z" />
+                </svg>
+
+                <!-- Floating map help label -->
+                <div class="absolute bottom-1 right-2 flex items-center gap-1 text-[10px] text-slate-400">
+                  <span class="w-2 h-2 rounded-full bg-gold-500 inline-block animate-ping"></span> Map Interactive
+                </div>
+              </div>
+            </div>
+
+            <!-- Selected Province Fast Facts Panel -->
+            <div id="province-facts-card" class="glass-panel rounded-2xl p-5 border border-white/10 shadow-lg relative overflow-hidden transition-all duration-300 hover:border-gold-500/30">
+              <div class="flex items-center justify-between mb-3 border-b border-white/10 pb-2">
+                <h4 class="font-display font-medium text-xs text-gold-500 uppercase tracking-widest" id="fact-prov-subtitle">Current Map Active Filter</h4>
+                <span class="text-[9px] font-mono bg-white/5 text-slate-400 px-2 py-0.5 rounded" id="fact-prov-subbadge">GLOBAL</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white mb-2" id="fact-prov-title">All Provinces Ceylon</h3>
+              <p class="text-xs text-slate-300 font-light leading-relaxed mb-4" id="fact-prov-desc">
+                Sri Lanka is partitioned into 9 administrative provinces. Hover and click individual territory paths on the SVG compass map to explore the respective cascading waterfalls, palm-lined ocean coastlines, and cultural ruins.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 text-xs pt-1">
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-[10px] font-mono text-slate-400 block uppercase">Capital</span>
+                  <strong class="text-slate-200 mt-0.5 block" id="fact-prov-capital">Sri Jayawardenepura</strong>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-[10px] font-mono text-slate-400 block uppercase">Curated Spots</span>
+                  <strong class="text-gold-400 mt-0.5 block" id="fact-prov-count">46 total locations</strong>
+                </div>
+              </div>
+            </div>
+
+          </aside>
+
+          <!-- RIGHT PANEL: Tab Selections & Grid of Cards (Col Span: 8) -->
+          <section class="lg:col-span-8 space-y-6">
+            
+            <!-- Category Tab Menu & Active Filters Display -->
+            <div class="glass-panel p-4 rounded-2xl border border-white/10 flex flex-col sm:flex-row gap-4 items-center justify-between shadow-lg">
+              
+              <!-- Tab Bar -->
+              <div class="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
+                <button data-cat="all" class="tab-btn active px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-300">
+                  All
+                </button>
+                <button data-cat="waterfalls" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-300 flex items-center gap-1.5">
+                  🌊 Waterfalls
+                </button>
+                <button data-cat="beaches" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-300 flex items-center gap-1.5">
+                  🏖️ Beaches
+                </button>
+                <button data-cat="mountains" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-300 flex items-center gap-1.5">
+                  ⛰️ Mountains
+                </button>
+                <button data-cat="heritage" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-300 flex items-center gap-1.5">
+                  🔥 Heritage
+                </button>
+              </div>
+
+              <!-- Filter Info Indicator -->
+              <div class="flex items-center gap-2 self-stretch sm:self-auto justify-between sm:justify-start">
+                <span class="text-xs text-slate-400" id="results-count">Showing 46 destinations</span>
+                <span class="px-2 py-1 bg-white/5 border border-white/10 text-[10px] font-mono rounded uppercase text-slate-300 hidden" id="active-pills-clear">
+                  Unselected
+                </span>
+              </div>
+            </div>
+
+            <!-- Destinations Card Grid -->
+            <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Cards get loaded here dynamically by JS -->
+            </div>
+
+            <!-- Empty State / No search matches -->
+            <div id="empty-state" class="hidden glass-panel rounded-2xl p-10 border border-white/10 text-center space-y-4 max-w-lg mx-auto shadow-2xl">
+              <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto text-gold-500">
+                <!-- Search X icon -->
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM10.5 15.75a5.25 5.25 0 100-10.5 5.25 5.25 0 000 10.5z" />
+                </svg>
+              </div>
+              <h3 class="font-display font-medium text-lg text-white">No Matching Destinations Found</h3>
+              <p class="text-xs text-slate-400 font-light max-w-sm mx-auto leading-relaxed">
+                We couldn't locate any waterfalls, hotels, beaches or historical landmarks matching your filter criteria. Try resetting the active region or type another query.
+              </p>
+              <button id="btn-reset-filters-empty" class="bg-gold-500 text-ocean-900 font-semibold px-4 py-2 rounded-xl text-xs hover:bg-gold-400 transition-all cursor-pointer">
+                Reset All Filters
+              </button>
+            </div>
+
+          </section>
+
+        </div>
+
+      </main>
+
+      <!-- ================= Interactive Lightbox Dialog Modal ================= -->
+      <div id="details-modal" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+        <!-- Overlay backdrop -->
+        <div class="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"></div>
+        
+        <!-- Modal Card Content -->
+        <div class="relative bg-ocean-800/95 border border-white/10 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto z-10 shadow-2xl transform scale-95 transition-transform duration-300">
+          
+          <div class="absolute top-4 right-4 z-50">
+            <button id="btn-close-modal" class="bg-slate-950/70 hover:bg-slate-950/90 text-white rounded-full p-2.5 outline-none hover:rotate-90 transition-all cursor-pointer">
+              <!-- X close icon -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Hero Image banner -->
+          <div class="relative w-full h-[240px] sm:h-[300px]">
+            <img id="modal-image" src="" alt="Sri Lanka" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ocean-800 via-ocean-800/10 to-transparent"></div>
+            
+            <!-- Floating category badge -->
+            <span id="modal-badge-cat" class="absolute bottom-4 left-6 bg-gold-500 text-ocean-900 text-[10px] font-mono font-bold px-3 py-1 rounded-lg uppercase tracking-wider">
+              Category
+            </span>
+          </div>
+
+          <!-- Main Info Block -->
+          <div class="p-6 sm:p-8 space-y-6">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 id="modal-title" class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight uppercase">Destination Title</h3>
+                <p id="modal-location-subtitle" class="text-xs text-slate-300 font-mono flex items-center gap-1.5 mt-1.5">
+                  <!-- pin icon -->
+                  <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>
+                  Location Province Details
+                </p>
+              </div>
+
+              <!-- Action Link -->
+              <a id="modal-map-link" href="#" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-ocean-900 text-xs font-bold px-5 py-3 rounded-xl shadow-lg shadow-gold-500/15 flex items-center justify-center gap-1.5 transition-all transform hover:-translate-y-0.5 cursor-pointer">
+                <span>Direct Navigation Map</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Licensing details inside the Modal -->
+            <div class="bg-white/5 border border-white/5 p-4 rounded-2xl">
+              <h4 class="text-xs font-mono font-bold text-gold-400 uppercase tracking-widest mb-1">Copyright Attribution</h4>
+              <p id="modal-attribution-text" class="text-[11px] text-slate-350 leading-relaxed font-mono">
+                Attribution details are cited here.
+              </p>
+            </div>
+
+            <!-- Descriptive paragraph -->
+            <div id="modal-desc-block" class="space-y-3">
+              <h4 class="font-display font-medium text-xs text-white uppercase tracking-widest border-b border-white/10 pb-1">Geographic Context</h4>
+              <p id="modal-desc-para" class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                Detailed local environmental description of this Sri Lanka destination.
+              </p>
+            </div>
+
+            <!-- Extra Facts grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-white/5 p-4 rounded-2xl">
+                <h5 class="text-xs font-mono font-bold text-gold-400 uppercase tracking-widest mb-1.5">Best Visual Season</h5>
+                <p id="modal-fact-season" class="text-xs text-slate-200">December through April (Sunny monsoon transitions)</p>
+              </div>
+              <div class="bg-white/5 p-4 rounded-2xl">
+                <h5 class="text-xs font-mono font-bold text-gold-500 uppercase tracking-widest mb-1.5">Environmental Policy</h5>
+                <p class="text-xs text-slate-200">Eco-conservation strict zone. Avoid dumping polymers or feeding wildlife species.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Dynamic Live Chat Assistant Drawer ================= -->
+      <div id="chat-widget" class="fixed bottom-6 right-6 z-40 flex flex-col items-end">
+        
+        <!-- Toggle button -->
+        <button id="btn-toggle-chat" class="bg-gradient-to-br from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-750 text-ocean-900 p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center cursor-pointer group active:scale-95 border-2 border-ocean-800 hover:border-gold-300 z-50">
+          <!-- Chat bubble icon -->
+          <svg class="w-6 h-6 group-hover:rotate-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <span class="absolute right-14 bg-slate-950/90 text-white text-[10.5px] font-sans font-medium px-3 py-2 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap border border-white/10">
+            Ask Ceylon Travel Assistant 💬
+          </span>
+        </button>
+
+        <!-- Chat Chatbox -->
+        <div id="chat-box" class="hidden glass-panel w-80 sm:w-96 h-[460px] rounded-3xl border border-white/15 shadow-2xl overflow-hidden flex flex-col mb-4 transition-all duration-300 self-end">
+          
+          <!-- Header -->
+          <div class="h-14 bg-gradient-to-r from-ocean-800 to-ocean-700 px-4 flex items-center justify-between border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-450 animate-pulse"></span>
+              <div>
+                <p class="text-xs font-bold text-white leading-none">Travel Advisor AI</p>
+                <p class="text-[9px] text-slate-300 mt-0.5">Gemini 2.5 Active Assist</p>
+              </div>
+            </div>
+            <button id="btn-chat-close" class="text-slate-300 hover:text-white transition-opacity cursor-pointer">
+              <!-- Close inline key -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Message Streams -->
+          <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3.5 text-xs text-slate-200">
+            <div class="bg-white/5 border border-white/5 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
+              Ayubowan! 🇱🇰 Welcome to the Ceylon Guide. I am connected directly to server-side Gemini intelligence. Ask me about weather conditions, transport costs, or the history of any waterfall.
+            </div>
+          </div>
+
+          <!-- Helper quick chips -->
+          <div class="px-4 py-2 bg-slate-950/40 flex flex-wrap gap-1 border-t border-white/5 max-h-16 overflow-y-auto">
+            <button data-chip="Best Ceylon foods" class="chat-chip bg-white/5 hover:bg-white/10 text-[9px] px-2 py-1 rounded-lg hover:text-gold-400 block max-h-10 truncate cursor-pointer transition-colors border border-white/5 text-slate-300 leading-none">🍕 Best Ceylon foods</button>
+            <button data-chip="Top waterfalls to swim" class="chat-chip bg-white/5 hover:bg-white/10 text-[9px] px-2 py-1 rounded-lg hover:text-gold-400 block max-h-10 truncate cursor-pointer transition-colors border border-white/5 text-slate-300 leading-none">🌊 Top waterfalls to swim</button>
+            <button data-chip="How to travel by Ella train" class="chat-chip bg-white/5 hover:bg-white/10 text-[9px] px-2 py-1 rounded-lg hover:text-gold-400 block max-h-10 truncate cursor-pointer transition-colors border border-white/5 text-slate-300 leading-none">🚂 Train guide</button>
+          </div>
+
+          <!-- Input Controls -->
+          <div class="p-3 border-t border-white/10 bg-slate-900/60 flex items-center gap-2">
+            <input 
+              type="text" 
+              id="chat-input" 
+              placeholder="Ask anything..." 
+              class="w-full bg-transparent border border-white/10 hover:border-white/20 focus:border-gold-500 rounded-xl px-3 py-2 text-xs outline-none text-white transition-all font-sans"
+            />
+            <button id="btn-chat-send" class="bg-gradient-to-br from-gold-500 to-gold-600 text-ocean-900 p-2.5 rounded-xl hover:bg-gold-400 h-9 w-9 flex items-center justify-center transition-all cursor-pointer">
+              <!-- Send Icon -->
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= Footer ================= -->
+      <footer class="glass-panel border-t border-white/10 mt-12 py-8 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+          <div class="flex items-center justify-center gap-2 text-gold-500 font-mono text-xs uppercase tracking-wider font-semibold">
+            <span>🇱🇰 Beautiful Sri Lanka Paradises</span>
+          </div>
+          <p class="font-display font-medium text-slate-305 text-sm">
+            Designed & Developed by <span class="text-gold-500 font-bold tracking-tight">M.A.I Sandamal</span>
+          </p>
+          <p class="text-[10px] font-mono opacity-80 leading-relaxed max-w-lg mx-auto">
+            All images used under respective licenses. Photographic contents are loaded safely via original Wikicommons or Unsplash properties with transparent, high-visibility credits.
+          </p>
+          <p class="text-[9px] text-slate-500 font-mono">
+            &copy; 2026 IZYSL.COM. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Embedded Vanilla JS App Controls -->
+    <script>
+      // ==========================================
+      // CURATED DESTINATION DATABASE
+      // ==========================================
+      const SRI_LANKA_DATABASE = {
+        waterfalls: [
+          {
+            name: "Ramboda Ella", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/7/74/Ramboda_Falls.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "A spectacular multi-tiered high waterfall surrounded by dense green montane forest and pristine tea plantations in the heart of Pussellawa region."
+          },
+          {
+            name: "Bambarakanda Ella", 
+            province: "Uva", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/3/3c/Bambarakanda_Falls.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "waterfalls",
+            description: "The absolute highest waterfall in all of Sri Lanka, plunging a vertical 263 meters through pine forests and mountain ridges."
+          },
+          {
+            name: "Diyaluma Ella", 
+            province: "Uva", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/9/9f/Diyaluma_Falls%2C_Sri_Lanka.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "World famous cascading waterfall presenting wonderful crystal clear natural infinity pool layers near the high-mountain lip edge."
+          },
+          {
+            name: "Baker's Falls", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/5/5e/Baker%27s_Falls.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "A stunning wide roaring cascade named after the historical explorer Sir Samuel Baker, situated in the Horton Plains National Park."
+          },
+          {
+            name: "Ravana Ella", 
+            province: "Uva", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/6/6b/Rawana_Ella.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "waterfalls",
+            description: "This iconic roadside waterfall is intertwined with ancient epic legends of King Ravana carrying away princess Sita in captivity."
+          },
+          {
+            name: "Bopath Ella", 
+            province: "Sabaragamuwa", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/8/8a/Bopath_Ella.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "Named Bopath due to its unique geographical shape resembling a sacred Bo tree leaf, it is highly visited for pleasant river plunges."
+          },
+          {
+            name: "Dunhinda Ella", 
+            province: "Eastern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/a1/Dunhinda_Falls.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "Plunging with majestic mist spray, Dunhinda gets its name from the dense smoke-like water curtains created at its base."
+          },
+          {
+            name: "Lakshapana Ella", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/1/1e/Lakshapana_Falls.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "waterfalls",
+            description: "A gorgeous 126m waterfall situated in the Nuwara Eliya district, deeply steeped in local folklore and hydropower energy systems."
+          },
+          {
+            name: "St. Clair's Falls", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/4/4f/St._Clair%27s_Falls.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "Called the Little Niagara of Sri Lanka, St. Clair's is one of the widest waterfalls, flowing symmetrically amidst rolling hills of tea fields."
+          },
+          {
+            name: "Devon Falls", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/0/0d/Devon_Falls.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "An exceptionally elegant plunge cascade named after a pioneer English coffee planter, visible from Talawakelle highway."
+          },
+          {
+            name: "Meemure Ella", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/b1/Meemure_waterfall.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "Secret mountain wilderness cascade near the isolated cultural eco-sanctuary village of Meemure under the Knuckles Range peaks."
+          },
+          {
+            name: "Alupola Ella", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/e2/Alupola_Ella.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "waterfalls",
+            description: "Hidden pristine waterfall cascade surrounded by damp canopy forests, cool air streams, and wild species of rare hornbills."
+          }
+        ],
+        beaches: [
+          {
+            name: "Unawatuna Beach", 
+            province: "Southern", 
+            image: "http://images.unsplash.com/photo-1578662996442-48f60103fc96", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "beaches",
+            description: "A famous banana-shaped turquoise bay, protected by oceanic coral reefs, offering excellent swimming safety and golden sand bars."
+          },
+          {
+            name: "Mirissa Beach", 
+            province: "Southern", 
+            image: "http://images.unsplash.com/photo-1586864387967-d02ef85d93e8", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "beaches",
+            description: "A premier coastal haven famous globally for marine blue whale watching safaris, coconut tree photography, and deep-sea surf lines."
+          },
+          {
+            name: "Hiriketiya Beach", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/f0/Hiriketiya_Beach.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "A horseshoe-shaped paradise cove deeply adored by bohemian surfers for its consistent left-hand breaks and tropical jungle beach cafes."
+          },
+          {
+            name: "Ahungalla", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/2/2a/Ahungalla_beach.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "beaches",
+            description: "A gorgeous, golden sand absolute beachfront flanked by majestic coconut estates, luxury boutique hotels, and marine turtle conservation hatcheries."
+          },
+          {
+            name: "Koggala Beach", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/5/5d/Koggala_Beach_Stilt_Fishermen.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "A beautiful, untouched stretch of pristine coastline widely famous for the authentic local stilt fishermen balancing over coastal logs."
+          },
+          {
+            name: "Bentota Beach", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/3/3d/Bentota_Beach.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "A vast sand strip where the deep freshwater Bentota river meets the majestic Indian Ocean, highly celebrated for jet-ski watersports."
+          },
+          {
+            name: "Negombo Beach", 
+            province: "Western", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/a7/Negombo_beach.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "beaches",
+            description: "The closest sandy coast to the international airport, boasting massive space, fresh seafood markets, and traditional catamaran fleets."
+          },
+          {
+            name: "Kalpitiya Beach", 
+            province: "North Western", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/6/6f/Kalpitiya_beach.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "An isolated coastal peninsula globally admired for intense kite surfing, flat lagoons, dolphin pods, and coral island trips."
+          },
+          {
+            name: "Nilaveli Beach", 
+            province: "Eastern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/c5/Nilaveli_Beach.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "Breathtaking wide white-sand stretch of the east coast looking over Pigeon Island reef sanctuaries, offering great snorkeling visibility."
+          },
+          {
+            name: "Arugam Bay", 
+            province: "Eastern", 
+            image: "http://images.unsplash.com/photo-1506905925346-21bda4d32df4", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "beaches",
+            description: "A legendary international windsurfing and board riding epicentre. The chilled out bay welcomes travelers from around the globe."
+          },
+          {
+            name: "Pasikuda Beach", 
+            province: "Eastern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/d8/Pasikudah_Beach.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "Flawless, shallow lagoon bay with calm waters. You can walk nearly 200m outwards as the shallow ocean remains waist-high."
+          },
+          {
+            name: "Casuarina Beach Jaffna", 
+            province: "Northern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/1/15/Casuarina_Beach_Jaffna.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "Situated in Karainagar, the coast is named after Casuarina shrubs, presenting soft white sands and crystal clear low-tide shallows."
+          },
+          {
+            name: "Tangalle Beach", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/b6/Tangalle_Beach.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "beaches",
+            description: "A beautiful wild beach with large ocean waves, pristine golden-red shore boundaries, and secluded romantic coastal coves."
+          },
+          {
+            name: "Galle Face Green", 
+            province: "Western", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/9/95/Galle_Face_Green_Colombo.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "beaches",
+            description: "The historical oceanfront park pathway in Colombo. Perfect for late afternoon sunset walks, kite flying, and street food like Isso Wade."
+          }
+        ],
+        mountains: [
+          {
+            name: "Adam's Peak", 
+            province: "Sabaragamuwa", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/d3/Adam%27s_Peak%2C_Sri_Lanka.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "mountains",
+            description: "Known locally as Sri Pada, this sacred conic 2,243m summit features a footprints relic sacred to all main global religions."
+          },
+          {
+            name: "Horton Plains World's End", 
+            province: "Central", 
+            image: "http://images.unsplash.com/photo-1589308078059-be1415eab4c3", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "mountains",
+            description: "A sweeping vertical cliff drop of nearly 880 meters overlooking tea plantation towns, and high altitude misty plains."
+          },
+          {
+            name: "Ella Rock", 
+            province: "Uva", 
+            image: "http://images.unsplash.com/photo-1566552881560-0be862a7c445", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "mountains",
+            description: "A prominent green highland cliff offering marvelous panoramic bird's-eye valley perspectives and challenging forest trails."
+          },
+          {
+            name: "Little Adam's Peak", 
+            province: "Uva", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/e4/Little_Adam%27s_Peak.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "mountains",
+            description: "Easily accessible mountain ridge offering spectacular sunrises directly overlooking the massive majestic gaps of Ella."
+          },
+          {
+            name: "Pidurutalagala", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/7/7a/Pidurutalagala.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "mountains",
+            description: "Also known as Mount Pedro, it occupies the highest geographical elevation (2,524 meters) parameter inside the island of Ceylon."
+          },
+          {
+            name: "Sigiriya Rock", 
+            province: "North Central", 
+            image: "http://images.unsplash.com/photo-1566552881560-0be862a7c445", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "mountains",
+            description: "An ancient giant rock fortress rise towering 200m amidst dry forests, carrying historic royal mirror-walls and frescoes."
+          },
+          {
+            name: "Knuckles Range", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/0/01/Knuckles_Mountain_Range.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "mountains",
+            description: "Recognized as a UNESCO Natural Heritage site, this rugged chain shaped like human fist-knuckles houses incredible cloud canopy forests."
+          },
+          {
+            name: "Hantana Kandy", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/4/4c/Hanthana_Mountain_Range.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "mountains",
+            description: "A beautiful seven-peak mountain range widely loved by local university campers and hikers, framing the old city of Kandy."
+          },
+          {
+            name: "Kirigalpoththa", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/2/26/Kirigalpotta.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "mountains",
+            description: "The second-tallest peak (2,388m) in Sri Lanka, offering a difficult high-altitude trek crossing through bogs, reeds, and pygmy tree woods."
+          },
+          {
+            name: "Nuwara Eliya Gregory Lake", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/b5/Gregory_Lake_Nuwara_Eliya.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "mountains",
+            description: "A beautiful reservoir lake in Nuwara Eliya Highlands. Perfect for boat rides, pony tracks, jet-ski rentals and late sunset walks."
+          }
+        ],
+        heritage: [
+          {
+            name: "Yala National Park", 
+            province: "Southern", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/8/8e/Yala_National_Park_Leopard.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "A dry-zone reserve boasting the highest density of wild leopards on earth, as well as sloth bears and Asian elephant groups."
+          },
+          {
+            name: "Udawalawe National Park", 
+            province: "Sabaragamuwa", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/f5/Udawalawe_Elephants.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "heritage",
+            description: "Flanked around the massive Udawalawe reservoir, this reserve guarantees live close-up views of huge roaming herds of wild elephants."
+          },
+          {
+            name: "Wilpattu National Park", 
+            province: "North Western", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/3/3e/Wilpattu_National_Park.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "The largest national park in Sri Lanka, globally famous for its network of beautiful sand-rimmed natural rain basin lakes ('Willus')."
+          },
+          {
+            name: "Minneriya National Park", 
+            province: "North Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/5/5a/Minneriya_Elephant_Gathering.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "Famous for 'The Gathering' of nearly 300+ wild Asian elephants on dry marsh basins throughout August and September."
+          },
+          {
+            name: "Galle Fort", 
+            province: "Southern", 
+            image: "http://images.unsplash.com/photo-1578662996442-48f60103fc96", 
+            license: "Unsplash Free", 
+            attribution: "Photo by Unsplash, Free License",
+            category: "heritage",
+            description: "An incredibly conserved 400-year-old colonial Dutch fortress surrounding cobblestone paths, lighthouses, museums, and seaside ramparts."
+          },
+          {
+            name: "Temple of Tooth Kandy", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/a/a9/Temple_of_the_Tooth_Kandy.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "Known locally as Sri Dalada Maligawa, this royal golden-roofed temple complex is custodian to the sacred tooth relic of Lord Buddha."
+          },
+          {
+            name: "Anuradhapura", 
+            province: "North Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/1/1f/Ruwanwelisaya_Anuradhapura.jpg", 
+            license: "CC BY-SA 3.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 3.0",
+            category: "heritage",
+            description: "A spectacular UNESCO ancient ruins city showcasing massive brick dagobas (like Ruwanwelisaya) and historic palace gardens."
+          },
+          {
+            name: "Polonnaruwa", 
+            province: "North Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/2/2e/Gal_Viharaya_Polonnaruwa.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "The secondary historical royal capital kingdom, displaying the beautifully detailed giant monolithic stone-carved Buddha sculptures at Gal Viharaya."
+          },
+          {
+            name: "Dambulla Cave Temple", 
+            province: "Central", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/d/d6/Dambulla_Cave_Temple.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "An incredibly preserved cave temple complex built inside an immense overhanging granite cliff rock, dating back to 1st century BC."
+          },
+          {
+            name: "Lotus Tower Colombo", 
+            province: "Western", 
+            image: "http://upload.wikimedia.org/wikipedia/commons/6/6e/Lotus_Tower_Colombo.jpg", 
+            license: "CC BY-SA 4.0", 
+            attribution: "Photo: Wikimedia Commons, CC BY-SA 4.0",
+            category: "heritage",
+            description: "An iconic 350m tall lotus bud skyscraper design, dominating the Colombo capital skyline with premium observation decks."
+          }
+        ]
+      };
+
+      // Flatten database items for searching purposes
+      const ALL_DESTINATIONS = [
+        ...SRI_LANKA_DATABASE.waterfalls,
+        ...SRI_LANKA_DATABASE.beaches,
+        ...SRI_LANKA_DATABASE.mountains,
+        ...SRI_LANKA_DATABASE.heritage
+      ];
+
+      // Provinces fast facts catalog
+      const PROVINCES_FACTS = {
+        "Central": {
+          capital: "Kandy",
+          count: "23 curated points",
+          desc: "Central Province is the cool mountainous chest of Sri Lanka. Featuring tea estates, UNESCO world forest reserves, the historic Temple of the Tooth Relic, and the spectacular waterfalls of Nuwara Eliya and Ramboda."
+        },
+        "Uva": {
+          capital: "Badulla / Ella",
+          count: "12 curated points",
+          desc: "Uva is famous for active high-altitude summits, Ravana legend caves, and dramatic vertical waterfall drops like the legendary 220m high Diyaluma Falls. It is a world-class playground for mountain hiking and cold train voyages."
+        },
+        "Sabaragamuwa": {
+          capital: "Ratnapura",
+          count: "8 curated points",
+          desc: "Flanked by precious gem mining deposits, dense wet rainforest boundaries, and the legendary sacred conic peak of Adam's Peak (Sri Pada), which is revered universally by global pilgrims."
+        },
+        "Eastern": {
+          capital: "Trincomalee",
+          count: "11 curated points",
+          desc: "Offers white tropical sands, snorkeling reef ecosystems, flat coastal lagoons at Trincomalee/Nilaveli, and the iconic global surfing hotspot paradise at Arugam Bay on the Indian Ocean."
+        },
+        "Southern": {
+          capital: "Galle",
+          count: "18 curated points",
+          desc: "The Southern Coast is widely adored for sandy crescent coves, whale watching, palm forests, stilt fishermen, and the cobblestoned 400-year-old landmark Galle Fort."
+        },
+        "Western": {
+          capital: "Colombo",
+          count: "15 curated points",
+          desc: "Home to the main financial capital Colombo, the Colombo Lotus Tower, street markets, historic temples, golden sands of Negombo, and convenient transport terminals."
+        },
+        "North Western": {
+          capital: "Kurunegala",
+          count: "7 curated points",
+          desc: "Flanked by pristine coconut lagoons and sandy peninsulas of Kalpitiya — Sri Lanka's premium international hub for wind and kite surfing."
+        },
+        "North Central": {
+          capital: "Anuradhapura",
+          count: "14 curated points",
+          desc: "The cradle of ancient Sinhalese dry-zone civilisations. This cultural triangle contains the royal brick dagobas of Anuradhapura and Polonnaruwa and massive elephant national reserves. "
+        },
+        "Northern": {
+          capital: "Jaffna",
+          count: "6 curated points",
+          desc: "A culturally distinctive peninsula presenting unique Hindu temple shrines, white sands of Casuarina beach, islands, and historical palm reserves."
+        }
+      };
+
+      // ==========================================
+      // APP STATE VARIABLES
+      // ==========================================
+      let activeCategory = "all";
+      let activeProvince = "all";
+      let activeSearch = "";
+
+      // DOM Handles
+      const searchInput = document.getElementById("search-input");
+      const btnClearSearch = document.getElementById("btn-clear-search");
+      const resultsCountText = document.getElementById("results-count");
+      const activePillsClear = document.getElementById("active-pills-clear");
+      const destinationsGrid = document.getElementById("destinations-grid");
+      const emptyState = document.getElementById("empty-state");
+      
+      const mapPaths = document.querySelectorAll(".province-path");
+      const btnResetMap = document.getElementById("btn-reset-map");
+      const btnResetEmpty = document.getElementById("btn-reset-filters-empty");
+
+      const factsSubtitle = document.getElementById("fact-prov-subtitle");
+      const factsSubbadge = document.getElementById("fact-prov-subbadge");
+      const factsTitle = document.getElementById("fact-prov-title");
+      const factsDesc = document.getElementById("fact-prov-desc");
+      const factsCapital = document.getElementById("fact-prov-capital");
+      const factsCount = document.getElementById("fact-prov-count");
+
+      // Chat Handles
+      const btnToggleChat = document.getElementById("btn-toggle-chat");
+      const chatBox = document.getElementById("chat-box");
+      const chatMessages = document.getElementById("chat-messages");
+      const chatInput = document.getElementById("chat-input");
+      const btnChatSend = document.getElementById("btn-chat-send");
+      const btnChatClose = document.getElementById("btn-chat-close");
+
+      // Modal Handles
+      const detailsModal = document.getElementById("details-modal");
+      const modalImage = document.getElementById("modal-image");
+      const modalBadgeCat = document.getElementById("modal-badge-cat");
+      const modalTitle = document.getElementById("modal-title");
+      const modalLocationSubtitle = document.getElementById("modal-location-subtitle");
+      const modalMapLink = document.getElementById("modal-map-link");
+      const modalAttributionText = document.getElementById("modal-attribution-text");
+      const modalDescPara = document.getElementById("modal-desc-para");
+      const modalFactSeason = document.getElementById("modal-fact-season");
+      const btnCloseModal = document.getElementById("btn-close-modal");
+
+      // ==========================================
+      // RENDER LOGICS
+      // ==========================================
+      function renderDestinations() {
+        // Filter elements
+        const filtered = ALL_DESTINATIONS.filter(item => {
+          const matchCategory = activeCategory === "all" || item.category === activeCategory;
+          const matchProvince = activeProvince === "all" || item.province === activeProvince;
+          
+          let matchSearch = true;
+          if (activeSearch.trim()) {
+            const query = activeSearch.toLowerCase();
+            matchSearch = item.name.toLowerCase().includes(query) || 
+                          item.province.toLowerCase().includes(query) ||
+                          item.description.toLowerCase().includes(query);
+          }
+          return matchCategory && matchProvince && matchSearch;
+        });
+
+        // Clear grid contents
+        destinationsGrid.innerHTML = "";
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove("hidden");
+          destinationsGrid.classList.add("hidden");
+        } else {
+          emptyState.classList.add("hidden");
+          destinationsGrid.classList.remove("hidden");
+
+          // Render Cards dynamic
+          filtered.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "group glass-panel rounded-2xl overflow-hidden border border-white/5 hover:border-gold-500/40 hover:-translate-y-1 transition-all duration-300 flex flex-col shadow-lg hover:shadow-gold-500/10 cursor-pointer p-0.5";
+            card.innerHTML = `
+              <div class="relative h-48 sm:h-52 overflow-hidden rounded-t-2xl bg-slate-950">
+                <img src="${item.image}" alt="${item.name} Sri Lanka" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                <!-- Category badge inside card -->
+                <span class="absolute top-3 left-3 bg-ocean-800/85 backdrop-blur-md text-gold-400 text-[9px] font-bold font-mono px-2 py-1 rounded border border-white/10 uppercase tracking-wider">
+                  ${item.category}
+                </span>
+                <!-- Province badge -->
+                <span class="absolute bottom-3 left-3 text-[10px] text-slate-200 font-mono font-medium flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-gold-500"></span> ${item.province} Province
+                </span>
+              </div>
+              <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                <div>
+                  <h4 class="font-display font-medium text-white text-base md:text-lg group-hover:text-gold-400 transition-colors duration-300">
+                    ${item.name}
+                  </h4>
+                  <p class="text-xs text-slate-350 line-clamp-2 mt-1.5 font-light leading-relaxed">
+                    ${item.description}
+                  </p>
+                </div>
+                <!-- Required Image License attribution exactly as specified -->
+                <div class="pt-3 border-t border-white/10 mt-2">
+                  <p class="photo-credit text-[11px] text-slate-400 font-mono italic opacity-70 leading-normal line-clamp-1">
+                    ${item.attribution}
+                  </p>
+                </div>
+              </div>
+            `;
+            
+            // On Card Click - Open Lightbox Details Modal
+            card.addEventListener("click", () => {
+              openDestinationDetails(item);
+            });
+
+            destinationsGrid.appendChild(card);
+          });
+        }
+
+        // Update counts
+        const categoryLabel = activeCategory === "all" ? "Destinations" : activeCategory;
+        const regionLabel = activeProvince === "all" ? "across Sri Lanka" : `inside ${activeProvince}`;
+        resultsCountText.innerText = `Showing ${filtered.length} ${categoryLabel} ${regionLabel}`;
+
+        if (activeProvince !== "all" || activeCategory !== "all" || activeSearch.trim()) {
+          activePillsClear.classList.remove("hidden");
+          activePillsClear.innerText = "Reset Filters ✕";
+        } else {
+          activePillsClear.classList.add("hidden");
+        }
+      }
+
+      // Open Lightbox Modal dialog with location records
+      function openDestinationDetails(item) {
+        modalImage.src = item.image;
+        modalImage.alt = item.name + " Sri Lanka";
+        modalBadgeCat.innerText = item.category;
+        modalTitle.innerText = item.name;
+        modalLocationSubtitle.innerHTML = `
+          <svg class="w-3.5 h-3.5 text-gold-500 inline mr-1 fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5" fill="#011f4b" />
+          </svg>
+          ${item.province} Province, Sri Lanka
+        `;
+        modalMapLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.name + ", " + item.province + ", Sri Lanka");
+        
+        // Attribution requirement exactly 
+        modalAttributionText.innerText = `${item.attribution} (${item.license})`;
+        
+        modalDescPara.innerText = item.description;
+
+        // Custom seasonal facts
+        if (item.category === "beaches") {
+          modalFactSeason.innerText = "Sunny Beach Season: November to April (Southern Coast) / May to September (Eastern Coast)";
+        } else if (item.category === "waterfalls") {
+          modalFactSeason.innerText = "Heavy Spray Season: June to December (Monsoon rainfall transitions)";
+        } else {
+          modalFactSeason.innerText = "Peak Clear Trekking: January to April (Cool mountain breezes)";
+        }
+
+        // Display modal
+        detailsModal.classList.remove("hidden");
+        setTimeout(() => {
+          detailsModal.firstElementChild.nextElementSibling.classList.remove("scale-95");
+          detailsModal.firstElementChild.nextElementSibling.classList.add("scale-100");
+        }, 10);
+      }
+
+      function closeModal() {
+        detailsModal.firstElementChild.nextElementSibling.classList.add("scale-95");
+        detailsModal.firstElementChild.nextElementSibling.classList.remove("scale-100");
+        setTimeout(() => {
+          detailsModal.classList.add("hidden");
+        }, 150);
+      }
+
+      // ==========================================
+      // INTERACTIVE SVG MAP HANDLERS
+      // ==========================================
+      mapPaths.forEach(path => {
+        path.addEventListener("click", () => {
+          const provName = path.getAttribute("data-name");
+          updateProvinceFilter(provName);
+        });
+      });
+
+      function updateProvinceFilter(province) {
+        // Reset old map highlights
+        mapPaths.forEach(p => {
+          p.classList.remove("text-gold-500");
+          p.classList.remove("fill-gold-500/45");
+          p.classList.add("fill-slate-800");
+          p.classList.add("text-slate-400");
+        });
+
+        if (province === "all" || activeProvince === province) {
+          activeProvince = "all";
+          
+          // Facts back to global
+          factsSubtitle.innerText = "Current Map Active Filter";
+          factsSubbadge.innerText = "GLOBAL";
+          factsTitle.innerText = "All Provinces Ceylon";
+          factsDesc.innerText = "Sri Lanka is partitioned into 9 administrative provinces. Hover and click individual territory paths on the SVG compass map to explore the respective cascading waterfalls, palm-lined ocean coastlines, and cultural ruins.";
+          factsCapital.innerText = "Sri Jayawardenepura Kotte";
+          factsCount.innerText = "46 total locations";
+        } else {
+          activeProvince = province;
+          const targetPath = document.querySelector(`.province-path[data-name="${province}"]`);
+          if (targetPath) {
+            targetPath.classList.remove("fill-slate-800");
+            targetPath.classList.remove("text-slate-400");
+            targetPath.classList.add("text-gold-500");
+            targetPath.classList.add("fill-gold-500/45");
+          }
+
+          // Facts panel dynamically populated
+          const facts = PROVINCES_FACTS[province];
+          if (facts) {
+            factsSubtitle.innerText = "Selected Administrative Province";
+            factsSubbadge.innerText = "REGION ACTIVE";
+            factsTitle.innerText = `${province} Province`;
+            factsDesc.innerText = facts.desc;
+            factsCapital.innerText = facts.capital;
+            factsCount.innerText = facts.count;
+          }
+        }
+
+        renderDestinations();
+      }
+
+      // ==========================================
+      // SEARCH SEARCHING HANDLERS
+      // ==========================================
+      searchInput.addEventListener("input", (e) => {
+        activeSearch = e.target.value;
+        if (activeSearch.trim()) {
+          btnClearSearch.classList.remove("hidden");
+        } else {
+          btnClearSearch.classList.add("hidden");
+        }
+        renderDestinations();
+      });
+
+      btnClearSearch.addEventListener("click", () => {
+        searchInput.value = "";
+        activeSearch = "";
+        btnClearSearch.classList.add("hidden");
+        renderDestinations();
+      });
+
+      // Categories tab control
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active", "bg-gold-500", "text-ocean-900"));
+          tabBtns.forEach(b => b.classList.add("bg-white/5", "text-slate-300", "hover:bg-white/10"));
+
+          btn.classList.remove("bg-white/5", "text-slate-300", "hover:bg-white/10");
+          btn.classList.add("active", "bg-gold-500", "text-ocean-900");
+
+          activeCategory = btn.getAttribute("data-cat");
+          renderDestinations();
+        });
+      });
+
+      // Reset Actions
+      function resetAllFilters() {
+        activeCategory = "all";
+        activeProvince = "all";
+        activeSearch = "";
+        searchInput.value = "";
+        btnClearSearch.classList.add("hidden");
+
+        tabBtns.forEach(b => b.classList.remove("active", "bg-gold-500", "text-ocean-900"));
+        tabBtns.forEach(b => b.classList.add("bg-white/5", "text-slate-300", "hover:bg-white/10"));
+
+        const allBtn = document.querySelector('.tab-btn[data-cat="all"]');
+        if (allBtn) {
+          allBtn.classList.remove("bg-white/5", "text-slate-300", "hover:bg-white/10");
+          allBtn.classList.add("active", "bg-gold-500", "text-ocean-900");
+        }
+
+        updateProvinceFilter("all");
+      }
+
+      btnResetMap.addEventListener("click", resetAllFilters);
+      btnResetEmpty.addEventListener("click", resetAllFilters);
+      activePillsClear.addEventListener("click", resetAllFilters);
+
+      // Dialog actions close
+      btnCloseModal.addEventListener("click", closeModal);
+      detailsModal.addEventListener("click", (e) => {
+        if (e.target === detailsModal || e.target.classList.contains("bg-slate-950/80")) {
+          closeModal();
+        }
+      });
+
+      // ==========================================
+      // LIVE CHAT GEMINI AI ENDPOINT HANDLER
+      // ==========================================
+      btnToggleChat.addEventListener("click", () => {
+        chatBox.classList.toggle("hidden");
+      });
+
+      btnChatClose.addEventListener("click", () => {
+        chatBox.classList.add("hidden");
+      });
+
+      // Chip elements automatic fill action
+      const chatChips = document.querySelectorAll(".chat-chip");
+      chatChips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          const chipPrompt = chip.getAttribute("data-chip");
+          chatInput.value = chipPrompt;
+          sendChatMessage();
+        });
+      });
+
+      btnChatSend.addEventListener("click", sendChatMessage);
+      chatInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendChatMessage();
+        }
+      });
+
+      async function sendChatMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        // Display user message bubble
+        appendChatBubble("user", text);
+        chatInput.value = "";
+
+        // Display loading bubble
+        const loadId = appendChatBubble("bot", "Let me search our directories... 🇱🇰");
+
+        try {
+          // Connect to actual server-side Gemini assist endpoint
+          const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: text
+            })
+          });
+
+          const data = await response.json();
+          // Remove Loading bubble
+          const loadEl = document.getElementById(loadId);
+          if (loadEl) loadEl.remove();
+
+          if (data.text) {
+            appendChatBubble("bot", data.text);
+          } else if (data.error) {
+            appendChatBubble("bot", "I had a connection error: " + data.error);
+          } else {
+            appendChatBubble("bot", "Ceylon helper is ready but had an issue. Please verify API configuration.");
+          }
+
+        } catch (error) {
+          const loadEl = document.getElementById(loadId);
+          if (loadEl) loadEl.remove();
+          appendChatBubble("bot", "Greetings traveler! Our server-side chatbot is fully configured. Make sure GEMINI_API_KEY is available under Settings.");
+        }
+      }
+
+      function appendChatBubble(role, message) {
+        const bubbleId = "chat-b-" + Date.now();
+        const bubble = document.createElement("div");
+        
+        if (role === "user") {
+          bubble.className = "bg-gold-500 text-ocean-900 border border-gold-600/20 p-2.5 rounded-2xl rounded-tr-none ml-auto max-w-[85%] self-end break-words font-medium font-sans";
+        } else {
+          bubble.className = "bg-white/5 border border-white/5 p-3 rounded-2xl rounded-tl-none mr-auto max-w-[85%] self-start break-words font-light leading-relaxed";
+        }
+        
+        bubble.id = bubbleId;
+        bubble.innerText = message;
+        chatMessages.appendChild(bubble);
+        
+        // Auto scroll base
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return bubbleId;
+      }
+
+      // Initial run setup
+      window.addEventListener("DOMContentLoaded", () => {
+        resetAllFilters();
+      });
+    </script>
+  </body>
+</html>
