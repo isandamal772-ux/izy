@@ -1,0 +1,6 @@
+{
+  "name": "IZYSL.COM",
+  "description": "Premium Luxury Sri Lanka Travel Guide & Planner. Explore beaches, waterfalls, mountains, wildlife, culture and hidden gems of Sri Lanka.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

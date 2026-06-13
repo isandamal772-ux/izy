@@ -1,0 +1,146 @@
+{
+  "entities": {
+    "Place": {
+      "title": "Place",
+      "description": "A tourist destination in Sri Lanka, including waterfalls, beaches, mountains, safari parks, and heritage sites.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["waterfalls", "beaches", "mountains", "safari", "heritage", "hidden_gems"] },
+        "location": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "description": { "type": "string" },
+        "seoReview": { "type": "string" },
+        "visitorTips": { "type": "array" },
+        "entranceFee": { "type": "string" },
+        "bestTime": { "type": "string" },
+        "imageUrls": { "type": "array" },
+        "surfingInfo": { "type": "string" },
+        "swimmingSafety": { "type": "string" },
+        "difficultyLevel": { "type": "string" },
+        "hikingGuide": { "type": "string" },
+        "weatherForecast": { "type": "string" },
+        "animalSightings": { "type": "array" },
+        "safariCosts": { "type": "string" },
+        "jeepBooking": { "type": "string" },
+        "unescoInfo": { "type": "string" },
+        "history": { "type": "string" }
+      },
+      "required": ["id", "name", "category", "location", "rating", "description"]
+    },
+    "Hotel": {
+      "title": "Hotel",
+      "description": "A hotel, resort, or luxury lodging in Sri Lanka.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["luxury", "budget", "hostel", "resort", "lodge"] },
+        "description": { "type": "string" },
+        "priceRange": { "type": "string" },
+        "facilities": { "type": "array" },
+        "imageUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "location": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "bookingUrl": { "type": "string" }
+      },
+      "required": ["id", "name", "category", "description", "priceRange", "imageUrl", "rating"]
+    },
+    "Restaurant": {
+      "title": "Restaurant",
+      "description": "A premium culinary or dining destination in Sri Lanka.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "cuisine": { "type": "string" },
+        "menuHighlights": { "type": "array" },
+        "priceRange": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "location": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" }
+      },
+      "required": ["id", "name", "cuisine", "priceRange", "imageUrl", "rating"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A visitor review and rating for a place, hotel, or restaurant.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "placeType": { "type": "string", "enum": ["places", "hotels", "restaurants"] },
+        "referenceId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "placeType", "referenceId", "userId", "userName", "rating", "comment", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Information about a user registered on the guide.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "favorites": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "TripPlan": {
+      "title": "TripPlan",
+      "description": "A generated day-by-day travel itinerary for a custom trip.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "durationDays": { "type": "number" },
+        "itinerary": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "durationDays", "itinerary", "createdAt"]
+    }
+  },
+  "firestore": {
+    "places": {
+      "schema": "Place",
+      "description": "Collection of tourist destinations, beaches, waterfalls, mountains, etc."
+    },
+    "hotels": {
+      "schema": "Hotel",
+      "description": "Collection of hospitality accommodations."
+    },
+    "restaurants": {
+      "schema": "Restaurant",
+      "description": "Collection of dining establishments."
+    },
+    "reviews": {
+      "schema": "Review",
+      "description": "Collection of visitor-contributed reviews and feedback."
+    },
+    "users": {
+      "schema": "UserProfile",
+      "description": "Collection of secure user profile configurations."
+    },
+    "trip_plans": {
+      "schema": "TripPlan",
+      "description": "Collection of custom travel sitemaps and itineraries."
+    }
+  }
+}
